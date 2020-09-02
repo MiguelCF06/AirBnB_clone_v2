@@ -49,10 +49,9 @@ class FileStorage:
         """Loads storage dictionary from file"""
         try:
             with open(self.__file_path, "r") as f:
-                f_load = json.load(f)
-            for key in f_load:
-                self.__objects[key] = classes[f_load[key]["__class__"]]\
-                                      (**f_load[key])
+                fl = json.load(f)
+            for key in fl:
+                self.__objects[key] = classes[fl[key]["__class__"]](**fl[key])
         except:
             pass
 
