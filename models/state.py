@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 """ State Module for HBNB project """
+import models
 from models.base_model import BaseModel, Base
+from models.city import City
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
 from os import environ
@@ -18,5 +20,9 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """Gets cities related to state"""
-            return [city for city in models.storage.all(City)
-                    if City.state_id == self.id]
+            city_l = []
+            all_cts = models.storage.all(City)
+            for city in all_cts.values():
+                if city.state_id == self.id:
+                    city_l.append(city)
+            return city_l
